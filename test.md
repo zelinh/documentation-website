@@ -1,4 +1,5 @@
-# TEST PATTERN 2
+# Test pattern 3
+# TEST PATTER 3
 # Test pattern
 # Test removal when no index exists.
 # Forget to update the code base. Another test on alias indexing
