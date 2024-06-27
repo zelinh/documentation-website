@@ -105,7 +105,7 @@
                 const controller = new AbortController();
                 abortControllers.unshift(abortControllers);
                 const startTime = Date.now();
-                const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
                 const data = await response.json();
                 const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
                 recordEvent('view_search_results', {
