@@ -8,12 +8,16 @@
         const elOverlay = document.querySelector('.top-banner-search--overlay');
         const elSpinner = document.querySelector('.top-banner-search--field-with-results--field--wrapper--search-component--search-spinner');
         if (!elInput || !elResults || !elOverlay) return;
-        
+
         const CLASSNAME_SPINNING = 'spinning';
         const CLASSNAME_HIGHLIGHTED = 'highlighted';
 
         const canSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        const docsVersion = elInput.getAttribute('data-docs-version');
+
+        //Extract fversion from the URL path
+        const urlPath = window.location.pathname;
+        const versionMatch = urlPath.match(/(\d+\.\d+)/);
+        const docsVersion = versionMatch ? versionMatch[1] : elInput.getAttribute('data-docs-version');
 
         let _showingResults = false,
             animationFrame,
