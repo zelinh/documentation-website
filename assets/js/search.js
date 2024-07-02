@@ -8,12 +8,15 @@
         const elOverlay = document.querySelector('.top-banner-search--overlay');
         const elSpinner = document.querySelector('.top-banner-search--field-with-results--field--wrapper--search-component--search-spinner');
         if (!elInput || !elResults || !elOverlay) return;
-        
+
         const CLASSNAME_SPINNING = 'spinning';
         const CLASSNAME_HIGHLIGHTED = 'highlighted';
 
         const canSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        const docsVersion = elInput.getAttribute('data-docs-version');
+        //Extract fversion from the URL path
+        const urlPath = window.location.pathname;
+        const versionMatch = urlPath.match(/(\d+\.\d+)/);
+        const docsVersion = versionMatch ? versionMatch[1] : elInput.getAttribute('data-docs-version');
 
         let _showingResults = false,
             animationFrame,
@@ -105,7 +108,7 @@
                 const controller = new AbortController();
                 abortControllers.unshift(abortControllers);
                 const startTime = Date.now();
-                const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
                 const data = await response.json();
                 const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
                 recordEvent('view_search_results', {
