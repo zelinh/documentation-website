@@ -5,6 +5,8 @@ parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 70
 redirect_from: /benchmark/workloads/corpora/
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/corpora/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/corpora/
 ---
 
 <!-- vale off -->

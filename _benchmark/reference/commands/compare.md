@@ -5,6 +5,8 @@ nav_order: 55
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/compare/
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/compare/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/compare/
 ---
 
 <!-- vale off -->
