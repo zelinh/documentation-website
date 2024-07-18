@@ -13,7 +13,7 @@
         const CLASSNAME_HIGHLIGHTED = 'highlighted';
 
         const canSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        //Extract fversion from the URL path
+        //Extract version from the URL path
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
         const docsVersion = versionMatch ? versionMatch[1] : elInput.getAttribute('data-docs-version');
