@@ -26,6 +26,23 @@
 
         const abortControllers = [];
 
+        // searchPageInput = document.getElementById('search-results-page-input');
+        // searchPageStart =
+        // searchPageInput.addEventListener('input', e => {
+        //
+        // })
+
+        // Direct to a new page when the search icon is clicked
+        // Get the search icon element by its ID
+        const searchIcon = document.getElementById('search-icon');
+        console.log('Search icon found:', searchIcon);
+        // Add a click event listener to the search icon
+        searchIcon.addEventListener('click', () => {
+            console.log('Search icon clicked');
+            // Redirect to the desired page
+            navToResultsPage();
+        });
+
         elInput.addEventListener('input', e => {
             debounceInput();
         });
@@ -256,6 +273,12 @@
             elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
         };
 
+        const navToResultsPage = () => {
+            // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
+            window.location.href = `/docs/latest/search}`;
+
+        }
+
         const recordEvent = (name, data) => {
             try {
                 gtag?.('event', name, data);
@@ -263,5 +286,65 @@
                 // Do nothing
             }
         };
+
+        console.log('search.js is loaded');
+
+        const doResultsPageSearch = async () => {
+            console.log("Running results page search!");
+            const version = "latest";
+            const category = document.getElementById('category').value;
+            const search_type = category == ("Documentations Only") ? "docs_" + version : "proj";
+
+            const input = document.getElementById('search-results-page-input');
+            const searchResultsContainer = document.getElementById('search-results-container');
+
+
+            try {
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${encodeURIComponent(input)}&t=${search_type}`);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    searchResultsContainer.innerHTML = data.results.map(result => `
+                          <div class="search-result-item">
+                            <a href="${result.url}">
+                              <h2>${result.title}</h2>
+                            </a>
+                            <p>${result.content}</p>
+                          </div>
+                        `).join('');
+                } else {
+                    searchResultsContainer.innerHTML = 'No results found!';
+                }
+            } catch (error) {
+                console.error('Error fetching search results:', error);
+                searchResultsContainer.innerHTML = 'An error occurred while fetching search results. Please try again later.';
+            }
+        }
+        // async function fetchSearchResults(query) {
+        //     const searchResultsContainer = document.getElementById('search-results-container');
+        //     searchResultsContainer.innerHTML = 'Loading...';
+        //
+        //     try {
+        //         const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`);
+        //         const data = await response.json();
+        //
+        //         if (data.results && data.results.length > 0) {
+        //             searchResultsContainer.innerHTML = data.results.map(result => `
+        //               <div class="search-result-item">
+        //                 <a href="${result.url}">
+        //                   <h2>${result.title}</h2>
+        //                 </a>
+        //                 <p>${result.content}</p>
+        //               </div>
+        //             `).join('');
+        //         } else {
+        //             searchResultsContainer.innerHTML = 'No results found!';
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching search results:', error);
+        //         searchResultsContainer.innerHTML = 'An error occurred while fetching search results. Please try again later.';
+        //     }
+        // }
+
     });
 })();

@@ -1,0 +1,64 @@
+---
+layout: table_wrappers
+---
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+{% include head.html %}
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+        <title>Expand</title>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </symbol>
+</svg>
+
+{% include header.html %}
+
+<div class="main-content-wrap-home">
+    <div id="main-content" class="main-content" role="main">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Results Page Head from layout</title>
+<!--                <link rel="stylesheet" href="/assets/css/style.css">-->
+<!--                <script src="{/assets/js/search.js}"></script>-->
+        </head>
+        <div class="container">
+            <input type="text" id="search-results-page-input"
+                   placeholder="Search from results page" aria-label="Search {{ site.title }}"
+                   data-docs-version="latest" autocomplete="off"
+            >
+            <aside class="sidebar">
+                <h2>Sidebar body from layout</h2>
+                <!-- Add filter options here -->
+                <form id="filters">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="all">All</option>
+                        <option value="category1">Documentations Only</option>
+                        <option value="category2">Non-docs Only</option>
+                    </select>
+                    <button type="button" onclick="doResultsPageSearch()">Start Searching</button>
+                </form>
+            </aside>
+            <main class="results">
+                <h1>Search Results for "{{ page.query }}"</h1>
+                <div id="search-results-container">
+                    <!-- API results will be displayed here -->
+                </div>
+            </main>
+        </div>
+        <a class="top-link" href="#top">
+            <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
+        </a>
+    </div>
+</div>
+
+{% include footer.html %}
+<script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
+</body>
+</html>

@@ -56,16 +56,16 @@ layout: table_wrappers
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
-      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
+      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
         <div class="version-wrapper" id="version-panel">
           {% if page.section == "opensearch" %}
             <a href="{{site.url}}{{site.baseurl}}/about/" class="site-category">{{ page.section-name }}</a>
           {% else %}
             <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
           {% endif %}
-          
+
           <a href="{{site.url}}/docs/latest/" class="back-link">&#x2190; Back to docs home</a>
-          
+
           {% if page.section == "opensearch" %}
             <version-selector selected="{{ site.data.versions.current }}"></version-selector>
           {% endif %}
@@ -100,27 +100,27 @@ layout: table_wrappers
               {% if collections_size > 1 or pages_top_size > 0 %}
                 {% if collection_value.nav_fold == true %}
                   <ul
-                    role="tree" 
+                    role="tree"
                     class="nav-list nav-category-list"
                   >
                     <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
-                      
+
                       {% assign collection_url_path = collection_key | append: "/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 1 -%}
-                        <a 
+                        <a
                           role="treeitem"
                           aria-owns="{{ owned_tree_id }}"
                           aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                          href="#" 
+                          href="#"
                           class="nav-list-expander"
                         ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
-                      <a 
+                      <a
                         role="treeitem"
                         aria-owns="{{ owned_tree_id }}"
                         aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
+                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
                         href="{{ collection_url_path | relative_url  }}"
                       >{{ collection_value.name }}</a>
                       {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
@@ -128,7 +128,7 @@ layout: table_wrappers
                   </ul>
                 {% else %}
                   {% assign collection_url_path = collection_key | append: "/" %}
-                  <a 
+                  <a
                     role="treeitem"
                     aria-owns="{{ owned_tree_id }}"
                     aria-current="{% if page.collection == collection_key %}page{% endif %}"
@@ -164,7 +164,7 @@ layout: table_wrappers
         {% endunless %}
         <div id="main-content" class="main-content" role="main">
           {% if page.section == "opensearch" %}
-            {% if site.doc_version == "supported" %}            
+            {% if site.doc_version == "supported" %}
               <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% elsif site.doc_version == "unsupported" %}
               <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
@@ -175,7 +175,7 @@ layout: table_wrappers
           {% else %}
             {{ content }}
           {% endif %}
-          
+
           <a class="top-link" href="#top">
             <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
           </a>
