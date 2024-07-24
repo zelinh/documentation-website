@@ -37,17 +37,17 @@ layout: table_wrappers
                 <!-- Add filter options here -->
                 <form id="filters">
                     <label>Category:</label>
-                    <div id="category-checkboxes">
+                    <div id="category-checkbox">
                         <div>
-                            <input type="checkbox" id="category-all" name="category" value="All" checked>
+                            <input type="checkbox" id="category-all" name="category-group" value="All" class="category-checkbox">
                             <label for="category-all">All</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="category-documentation" name="category" value="Documentation">
+                            <input type="checkbox" id="category-documentation" name="category-group" value="Documentation" class="category-checkbox">
                             <label for="category-documentation">Documentations</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="category-nondocs" name="category" value="category2">
+                            <input type="checkbox" id="category-nondocs" name="category-group" value="category2" class="category-checkbox">
                             <label for="category-nondocs">Non-docs Only</label>
                         </div>
                     </div>
@@ -75,14 +75,33 @@ layout: table_wrappers
 
 {% include footer.html %}
 <script>
-    document.getElementById('advanced-search-button').addEventListener('click', function() {
-        window.dispatchEvent(new CustomEvent('searchRequested'));
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== this) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
     });
 </script>
 <script>
   const searchInput = document.getElementById('search-results-page-input');
+  searchInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        window.dispatchEvent(new CustomEvent('searchRequested'));
+    }
+  })
+  
   const searchResultsHeader = document.getElementById('search-results-header');
   const searchButton = document.getElementById('advanced-search-button');
+
+  searchButton.addEventListener('click', function() {
+        window.dispatchEvent(new CustomEvent('searchRequested'));
+    });
 
   searchButton.addEventListener('click', function() {
     const searchQuery = searchInput.value.trim();

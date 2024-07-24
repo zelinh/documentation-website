@@ -294,14 +294,17 @@
         const doResultsPageSearch = async () => {
             console.log("Running results page search!");
             const version = "latest";
-            const category = document.getElementById('search-category').value;
-            const search_type = category == ("Documentation") ? "docs_" + version : "proj";
+            const checkboxes = document.querySelectorAll('.category-checkbox')
+            const selectedCategory = document.querySelector('input[name="category-group"]:checked');
+            // const category = document.getElementById('search-category').value;
+            // const search_type = category == ("Documentation") ? "docs_" + version : "proj";
+            const search_type = "docs";
 
             const input = document.getElementById('search-results-page-input').value;
             const searchResultsContainer = document.getElementById('search-results-container');
 
             console.log('Input value:', input);
-            console.log('category value:', category);
+            console.log('category value:', selectedCategory);
             console.log('search_type value:', search_type);
 
 
@@ -362,6 +365,7 @@
 
         // Inside your search.js file
         // Add an event listener for the 'searchRequested' event
+        
         window.addEventListener('searchRequested', doResultsPageSearch);
         // async function fetchSearchResults(query) {
         //     const searchResultsContainer = document.getElementById('search-results-container');
