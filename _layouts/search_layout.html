@@ -36,17 +36,32 @@ layout: table_wrappers
                 <h2>Sidebar body from layout</h2>
                 <!-- Add filter options here -->
                 <form id="filters">
-                    <label for="category">Category:</label>
-                    <select id="category" name="category">
-                        <option value="all">All</option>
-                        <option value="category1">Documentations Only</option>
+                    <label>Category:</label>
+                    <div id="category-checkboxes">
+                        <div>
+                            <input type="checkbox" id="category-all" name="category" value="All" checked>
+                            <label for="category-all">All</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-documentation" name="category" value="Documentation">
+                            <label for="category-documentation">Documentations</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="category-nondocs" name="category" value="category2">
+                            <label for="category-nondocs">Non-docs Only</label>
+                        </div>
+                    </div>
+                    <!-- <label for="category">Category:</label>
+                    <select id="search-category" name="category">
+                        <option value="All">All</option>
+                        <option value="Documentation">Documentations Only</option>
                         <option value="category2">Non-docs Only</option>
-                    </select>
-                    <button type="button" onclick="doResultsPageSearch()">Start Searching</button>
+                    </select> -->
+                    <button id="advanced-search-button" type="button">Start Searching</button>
                 </form>
             </aside>
             <main class="results">
-                <h1>Search Results for "{{ page.query }}"</h1>
+                <h1 id="search-results-header"></h1>
                 <div id="search-results-container">
                     <!-- API results will be displayed here -->
                 </div>
@@ -59,6 +74,26 @@ layout: table_wrappers
 </div>
 
 {% include footer.html %}
+<script>
+    document.getElementById('advanced-search-button').addEventListener('click', function() {
+        window.dispatchEvent(new CustomEvent('searchRequested'));
+    });
+</script>
+<script>
+  const searchInput = document.getElementById('search-results-page-input');
+  const searchResultsHeader = document.getElementById('search-results-header');
+  const searchButton = document.getElementById('advanced-search-button');
+
+  searchButton.addEventListener('click', function() {
+    const searchQuery = searchInput.value.trim();
+    if (searchQuery) {
+      searchResultsHeader.textContent = `Search Results for "${searchQuery}"`;
+    } else {
+      searchResultsHeader.textContent = 'Please input a Query for searching.';
+    }
+  });
+</script>
+
 <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
 </body>

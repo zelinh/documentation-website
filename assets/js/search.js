@@ -34,6 +34,10 @@
 
         // Direct to a new page when the search icon is clicked
         // Get the search icon element by its ID
+        const navToResultsPage = () => {
+            // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
+            window.location.href = `/docs/latest/search`;
+        }
         const searchIcon = document.getElementById('search-icon');
         console.log('Search icon found:', searchIcon);
         // Add a click event listener to the search icon
@@ -42,6 +46,8 @@
             // Redirect to the desired page
             navToResultsPage();
         });
+
+
 
         elInput.addEventListener('input', e => {
             debounceInput();
@@ -273,11 +279,7 @@
             elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
         };
 
-        const navToResultsPage = () => {
-            // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
-            window.location.href = `/docs/latest/search}`;
 
-        }
 
         const recordEvent = (name, data) => {
             try {
@@ -292,26 +294,58 @@
         const doResultsPageSearch = async () => {
             console.log("Running results page search!");
             const version = "latest";
-            const category = document.getElementById('category').value;
-            const search_type = category == ("Documentations Only") ? "docs_" + version : "proj";
+            const category = document.getElementById('search-category').value;
+            const search_type = category == ("Documentation") ? "docs_" + version : "proj";
 
-            const input = document.getElementById('search-results-page-input');
+            const input = document.getElementById('search-results-page-input').value;
             const searchResultsContainer = document.getElementById('search-results-container');
+
+            console.log('Input value:', input);
+            console.log('category value:', category);
+            console.log('search_type value:', search_type);
 
 
             try {
-                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${encodeURIComponent(input)}&t=${search_type}`);
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${input}&t=${search_type}`);
                 const data = await response.json();
 
                 if (data.results && data.results.length > 0) {
-                    searchResultsContainer.innerHTML = data.results.map(result => `
-                          <div class="search-result-item">
-                            <a href="${result.url}">
-                              <h2>${result.title}</h2>
-                            </a>
-                            <p>${result.content}</p>
-                          </div>
-                        `).join('');
+                    // Clear any previous search results
+                    searchResultsContainer.innerHTML = '';
+
+                    if (data.results && data.results.length > 0) {
+                      data.results.forEach(result => {
+                        const resultElement = document.createElement('div');
+                        resultElement.classList.add('search-result-item');
+                    
+                        const titleLink = document.createElement('a');
+                        titleLink.href = result.url;
+                        titleLink.textContent = result.title;
+                    
+                        const contentSpan = document.createElement('span');
+                        contentSpan.textContent = result.content;
+                    
+                        resultElement.appendChild(titleLink);
+                        resultElement.appendChild(contentSpan);
+                    
+                        // Append the result element to the searchResultsContainer
+                        searchResultsContainer.appendChild(resultElement);
+                      });
+                    } else {
+                      const noResultsElement = document.createElement('div');
+                      noResultsElement.textContent = 'No results found!';
+                      searchResultsContainer.appendChild(noResultsElement);
+                    }
+
+                    // searchResultsContainer.innerHTML = data.results.forEach(result => `
+                    //       <div class="search-result-item">
+                    //         <a href="${sanitizeAttribute(result.url)}>
+                    //           <cite>${getBreadcrumbs(result)}</cite>
+                    //             ${sanitizeText(result.title || 'Unnamed Document')}
+                    //         </a>
+                    //         <span>${sanitizeText(result.content?.replace?.(/\n/g, '&hellip; '))}</span>
+                    //       </div>
+                    //     `).join('');
                 } else {
                     searchResultsContainer.innerHTML = 'No results found!';
                 }
@@ -320,6 +354,15 @@
                 searchResultsContainer.innerHTML = 'An error occurred while fetching search results. Please try again later.';
             }
         }
+        // const searchButton = document.getElementById('advanced-search-button');
+        // searchButton.addEventListener('click', () => {
+        //     console.log('Advanced search button clicked');
+        //     doResultsPageSearch;
+        // });
+
+        // Inside your search.js file
+        // Add an event listener for the 'searchRequested' event
+        window.addEventListener('searchRequested', doResultsPageSearch);
         // async function fetchSearchResults(query) {
         //     const searchResultsContainer = document.getElementById('search-results-container');
         //     searchResultsContainer.innerHTML = 'Loading...';
