@@ -36,7 +36,7 @@
         // Get the search icon element by its ID
         const navToResultsPage = () => {
             // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
-            window.location.href = `/docs/latest/search`;
+            window.location.href = `/docs/latest/search.html`;
         }
         const searchIcon = document.getElementById('search-icon');
         console.log('Search icon found:', searchIcon);
