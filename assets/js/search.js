@@ -293,12 +293,11 @@
 
         const doResultsPageSearch = async () => {
             console.log("Running results page search!");
-            const version = "latest";
+            const version = docsVersion;
             const checkboxes = document.querySelectorAll('.category-checkbox')
-            const selectedCategory = document.querySelector('input[name="category-group"]:checked');
-            // const category = document.getElementById('search-category').value;
-            // const search_type = category == ("Documentation") ? "docs_" + version : "proj";
-            const search_type = "docs";
+            const selectedCategory = document.querySelector('input[name="category-group"]:checked').value;
+            const search_type = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
+
 
             const input = document.getElementById('search-results-page-input').value;
             const searchResultsContainer = document.getElementById('search-results-container');
