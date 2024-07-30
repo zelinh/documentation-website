@@ -1030,6 +1030,57 @@ body {
   border-bottom: 1px solid #eeebee;
 }
 
+.search-page-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px; /* Space between the sidebar and search input */
+}
+
+.search-page-sidebar {
+  flex: 1;
+  max-width: 200px;
+  flex: 0 0 200px; /* Fixed width for the sidebar */
+}
+
+.search-page-results {
+  flex: 3; /* Take the remaining space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-results-page-input {
+  width: 100%;
+  max-width: 800px; /* Limit the width of the search input */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-page-results-main {
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+
+#search-results-header {
+  text-align: center;
+  margin-bottom: 20px;
+  max-width: 800px;
+  position: sticky;
+  top: 0;
+  background-color: white; /* Ensures header is readable */
+  z-index: 1000; /* Keeps header on top of other elements */
+}
+
+// .search-page-top-link {
+//   display: block;
+//   margin-top: 20px;
+//   text-align: center;
+// }
+
 @mixin body-text($color: #000) {
   color: $color;
   font-family: 'Open Sans';

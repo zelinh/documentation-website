@@ -23,7 +23,7 @@
       <i class="icon icon-close"></i>
       <span>Menu</span>
     </div>
-    <div role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
+    <div id="navigation-header" role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
       <ul class="navigation-container--nested-nav-wrapper--nested-nav">
         {% for nav_item in site.data.top_nav.items %}
         <li data-istoplevel="true">
@@ -128,6 +128,19 @@
       menu.classList.toggle('active');
       button.classList.toggle('active');
     });
+
+    // const searchIconToggler = document.getElementById('search-icon');
+    // const header = document.querySelector('#top');
+    // const navigationContainer = document.querySelector('.navigation-container--nested-nav-wrapper');
+    // const searchInputWrap = document.querySelector('.top-banner-search--field-with-results--field--wrapper--search-component--input-wrap');
+    // const searchInput = document.getElementById('search-input');
+    
+    // searchIconToggler.addEventListener('click', () => {
+    //   header.classList.toggle('search-active');
+    //   if (header.classList.contains('search-active')) {
+    //     searchInput.focus();
+    //   }
+    // });
 
     const isMobile = window.matchMedia('only screen and (max-width: 834px)').matches;
     const currentPageIsEventsList = /^\/events\/$/.test(window.location.pathname);

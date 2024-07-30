@@ -37,15 +37,16 @@
         const navToResultsPage = () => {
             // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
             window.location.href = `/docs/latest/search.html`;
+            // href = `/docs/latest/search.html`;
         }
-        const searchIcon = document.getElementById('search-icon');
-        console.log('Search icon found:', searchIcon);
-        // Add a click event listener to the search icon
-        searchIcon.addEventListener('click', () => {
-            console.log('Search icon clicked');
-            // Redirect to the desired page
-            navToResultsPage();
-        });
+        // const searchIcon = document.getElementById('search-icon');
+        // console.log('Search icon found:', searchIcon);
+        // // Add a click event listener to the search icon
+        // searchIcon.addEventListener('click', () => {
+        //     console.log('Search icon clicked');
+        //     // Redirect to the desired page
+        //     navToResultsPage();
+        // });
 
 
 
@@ -71,9 +72,13 @@
                     highlightNextResult();
                     break;
 
+                // case 'Enter':
+                //     e.preventDefault();
+                //     navToHighlightedResult();
+                //     break;
                 case 'Enter':
                     e.preventDefault();
-                    navToHighlightedResult();
+                    navToResultsPage();
                     break;
             }
         });
