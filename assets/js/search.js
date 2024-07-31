@@ -300,7 +300,6 @@
         const doResultsPageSearch = async () => {
             console.log("Running results page search!");
             const version = docsVersion;
-            const checkboxes = document.querySelectorAll('.category-checkbox')
             const selectedCategory = document.querySelector('input[name="category-group"]:checked').value;
             const search_type = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
 
@@ -314,7 +313,7 @@
 
 
             try {
-                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${input}&t=${search_type}`);
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${input}&v=${version}&t=${search_type}`);
                 const data = await response.json();
 
                 if (data.results && data.results.length > 0) {
