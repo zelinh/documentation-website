@@ -47,7 +47,7 @@ layout: table_wrappers
                             <label for="category-nondocs">News</label>
                         </div>
                     </div>
-                    <button id="advanced-search-button" type="button">Start Searching</button>
+                    <button id="advanced-search-button" style="background-color: #00509c; color: #fff" type="button">Start Searching</button>
                 </form>
             </aside>
             <div class="search-page-results">
@@ -87,8 +87,11 @@ layout: table_wrappers
     const searchButton = document.getElementById('advanced-search-button');
 
     searchButton.addEventListener('click', function() {
-      const searchQuery = searchInput.value.trim();
+      let searchQuery = searchInput.value.trim();
       if (searchQuery) {
+        if (searchQuery.length > 20) {
+          searchQuery = searchQuery.substring(0, 17) + '...';
+        }
         searchResultsHeader.textContent = `Search Results for "${searchQuery}"`;
       } else {
         searchResultsHeader.textContent = 'Please input a Query for searching.';
