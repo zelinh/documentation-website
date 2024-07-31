@@ -72,13 +72,9 @@
                     highlightNextResult();
                     break;
 
-                // case 'Enter':
-                //     e.preventDefault();
-                //     navToHighlightedResult();
-                //     break;
                 case 'Enter':
                     e.preventDefault();
-                    navToResultsPage();
+                    navToHighlightedResult();
                     break;
             }
         });
@@ -281,7 +277,12 @@
 
         const navToHighlightedResult = () => {
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
-            elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
+            const element = elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`);
+            if (element) {
+                element.click?.();
+            } else {
+                navToResultsPage();
+            }
         };
 
 
@@ -328,9 +329,11 @@
                         const titleLink = document.createElement('a');
                         titleLink.href = result.url;
                         titleLink.textContent = result.title;
+                        titleLink.style.fontSize = '1.5em';
                     
                         const contentSpan = document.createElement('span');
                         contentSpan.textContent = result.content;
+                        contentSpan.style.display = 'block';
                     
                         resultElement.appendChild(titleLink);
                         resultElement.appendChild(contentSpan);
@@ -343,16 +346,6 @@
                       noResultsElement.textContent = 'No results found!';
                       searchResultsContainer.appendChild(noResultsElement);
                     }
-
-                    // searchResultsContainer.innerHTML = data.results.forEach(result => `
-                    //       <div class="search-result-item">
-                    //         <a href="${sanitizeAttribute(result.url)}>
-                    //           <cite>${getBreadcrumbs(result)}</cite>
-                    //             ${sanitizeText(result.title || 'Unnamed Document')}
-                    //         </a>
-                    //         <span>${sanitizeText(result.content?.replace?.(/\n/g, '&hellip; '))}</span>
-                    //       </div>
-                    //     `).join('');
                 } else {
                     searchResultsContainer.innerHTML = 'No results found!';
                 }

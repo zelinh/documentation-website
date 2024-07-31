@@ -27,7 +27,7 @@ layout: table_wrappers
         </head>
         <div class="search-page-container">
             <aside class="search-page-sidebar">
-                <h2>Sidebar Filter from layout</h2>
+                <h2>Refine Your Search</h2>
                 <div class="version-selector-wrapper" id="version-panel">
                     <version-selector selected="{{ site.data.versions.current }}"></version-selector>
                 </div>
@@ -82,22 +82,48 @@ layout: table_wrappers
     });
 </script>
 <script>
+    function truncateSentence(sentence, maxLength) {
+    if (sentence.length <= maxLength) return sentence;
+    let words = sentence.split(' ');
+    let truncatedSentence = '';
+
+    for (let i = 0; i < words.length; i++) {
+        if (truncatedSentence.length + words[i].length + 1 > maxLength) {
+            break;
+        }
+        if (i > 0) {
+            truncatedSentence += ' ';
+        }
+        truncatedSentence += words[i];
+    }
+    return truncatedSentence + (truncatedSentence.length < sentence.length ? '...' : '');
+}
+</script>
+<script>
     const searchInput = document.getElementById('search-results-page-input');
-    const searchResultsHeader = document.getElementById('search-results-header');
     const searchButton = document.getElementById('advanced-search-button');
 
-    searchButton.addEventListener('click', function() {
-      let searchQuery = searchInput.value.trim();
-      if (searchQuery) {
-        if (searchQuery.length > 20) {
-          searchQuery = searchQuery.substring(0, 17) + '...';
-        }
-        searchResultsHeader.textContent = `Search Results for "${searchQuery}"`;
+    function triggerSearch(query) {
+      const searchResultsHeader = document.getElementById('search-results-header');
+      if (query) {
+        query = truncateSentence(query, 20);
+        searchResultsHeader.textContent = `Search Results for "${query}"`;
+        window.dispatchEvent(new CustomEvent('searchRequested'));
       } else {
         searchResultsHeader.textContent = 'Please input a Query for searching.';
       }
-      window.dispatchEvent(new CustomEvent('searchRequested'));
+    }
+
+    searchButton.addEventListener('click', function() {
+      triggerSearch(searchInput.value.trim());
     });
+
+    searchInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        triggerSearch(searchInput.value.trim());
+    }
+});
 </script>
 <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
