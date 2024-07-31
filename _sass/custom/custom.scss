@@ -724,6 +724,10 @@ main {
   }
 }
 
+main.search-page-results-main {
+  flex-flow: column nowrap;
+}
+
 .container {
   box-sizing: content-box;
 
@@ -1071,7 +1075,7 @@ body {
   max-width: 800px;
   position: sticky;
   top: 0;
-  background-color: white; /* Ensures header is readable */
+  background-color: transparent; /* Ensures header is readable */
   z-index: 1000; /* Keeps header on top of other elements */
 }
 
