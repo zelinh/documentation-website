@@ -112,6 +112,7 @@ layout: table_wrappers
         window.dispatchEvent(new CustomEvent('searchRequested'));
       } else {
         searchResultsHeader.textContent = 'Please input a Query for searching.';
+        document.getElementById('search-results-container').innerHTML = '';
       }
     }
 
@@ -130,7 +131,7 @@ layout: table_wrappers
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('search-results-page-input');
-      
+
       const getQueryParam = (param) => {
           const urlParams = new URLSearchParams(window.location.search);
           return urlParams.get(param);
