@@ -35,9 +35,9 @@
         // Direct to a new page when the search icon is clicked
         // Get the search icon element by its ID
         const navToResultsPage = () => {
-            // window.location.href = `/docs/latest/search?query=${encodeURIComponent(elInput.value)}`;value
-            window.location.href = `/docs/latest/search.html`;
-            // href = `/docs/latest/search.html`;
+            const query = encodeURIComponent(elInput.value);
+            window.location.href = `/docs/latest/search.html?q=${query}`;
+            doResultsPageSearch();
         }
         // const searchIcon = document.getElementById('search-icon');
         // console.log('Search icon found:', searchIcon);

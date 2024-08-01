@@ -107,6 +107,7 @@ layout: table_wrappers
       const searchResultsHeader = document.getElementById('search-results-header');
       if (query) {
         query = truncateSentence(query, 20);
+        console.log("query in triggerSearch is: ", query);
         searchResultsHeader.textContent = `Search Results for "${query}"`;
         window.dispatchEvent(new CustomEvent('searchRequested'));
       } else {
@@ -119,11 +120,29 @@ layout: table_wrappers
     });
 
     searchInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        triggerSearch(searchInput.value.trim());
-    }
-});
+      if (event.key === 'Enter') {
+          event.preventDefault();
+          triggerSearch(searchInput.value.trim());
+      }
+    });
+      
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('search-results-page-input');
+      
+      const getQueryParam = (param) => {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param);
+      };
+  
+      const searchQuery = getQueryParam('q');
+  
+      if (searchQuery) {
+        searchInput.value = decodeURIComponent(searchQuery);
+        triggerSearch(searchQuery);
+      }
+    });
 </script>
 <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
