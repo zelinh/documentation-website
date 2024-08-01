@@ -277,3 +277,47 @@
         };
     });
 })();
+
+window.doResultsPageSearch = async (query, type, version) => {
+    console.log("Running results page search!");
+
+    const searchResultsContainer = document.getElementById('search-results-container');
+
+    try {
+        const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${version}&t=${type}`);
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+            // Clear any previous search results
+            searchResultsContainer.innerHTML = '';
+
+            data.results.forEach(result => {
+              const resultElement = document.createElement('div');
+              resultElement.classList.add('search-result-item');
+
+              const titleLink = document.createElement('a');
+              titleLink.href = result.url;
+              titleLink.textContent = result.title;
+              titleLink.style.fontSize = '1.5em';
+
+              const contentSpan = document.createElement('span');
+              contentSpan.textContent = result.content;
+              contentSpan.style.display = 'block';
+
+              resultElement.appendChild(titleLink);
+              resultElement.appendChild(contentSpan);
+
+              // Append the result element to the searchResultsContainer
+              searchResultsContainer.appendChild(resultElement);
+            });
+        } else {
+          const noResultsElement = document.createElement('div');
+          noResultsElement.textContent = 'No results found!';
+          noResultsElement.style.fontSize = '2em';
+          searchResultsContainer.appendChild(noResultsElement);
+        }
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+        searchResultsContainer.innerHTML = 'An error occurred while fetching search results. Please try again later.';
+    }
+}
