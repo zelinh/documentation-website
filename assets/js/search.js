@@ -286,10 +286,10 @@ window.doResultsPageSearch = async (query, type, version) => {
     try {
         const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${version}&t=${type}`);
         const data = await response.json();
-
+        searchResultsContainer.innerHTML = '';
+        
         if (data.results && data.results.length > 0) {
             // Clear any previous search results
-            searchResultsContainer.innerHTML = '';
 
             data.results.forEach(result => {
               const resultElement = document.createElement('div');
