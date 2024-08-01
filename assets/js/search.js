@@ -30,7 +30,7 @@
         // Get the search icon element by its ID
         const navToResultsPage = () => {
             const query = encodeURIComponent(elInput.value);
-            window.location.href = `/docs/latest/search.html?q=${query}`;
+            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
         }
 
         elInput.addEventListener('input', e => {

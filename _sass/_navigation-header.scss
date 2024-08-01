@@ -972,27 +972,6 @@ $max-container: 1440px;
     }
 }
 
-// /* Hide the search input box by default */
-// .top-banner-search--field-with-results--field--wrapper--search-component--input-wrap {
-//   display: none;
-// }
-
-// /* Show the search icon */
-// #search-icon {
-//     display: block;
-//     cursor: pointer;
-// }
-
-// /* Show the input box when the search is active */
-// .search-active .top-banner-search--field-with-results--field--wrapper--search-component--input-wrap {
-//   display: block;
-// }
-
-// /* Hide other header elements when search is active */
-// .search-active .navigation-container--nested-nav-wrapper {
-//   display: none;
-// }
-
 @media screen and (max-width: 1018px) {
     .search-active .top-banner-search--field-with-results--field--wrapper--search-component {
         position: fixed;
