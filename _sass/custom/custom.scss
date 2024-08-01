@@ -1030,6 +1030,52 @@ body {
   border-bottom: 1px solid #eeebee;
 }
 
+.search-page-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px; /* Space between the sidebar and search input */
+  margin: 0 auto; /* Center the container on the screen */
+}
+
+.search-page-sidebar {
+  flex: 1;
+  max-width: 200px;
+  flex: 0 0 200px; /* Fixed width for the sidebar */
+}
+
+.search-page-results {
+  flex: 3; /* Take the remaining space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 60%; /* Set results width to 60% of the screen */
+}
+
+#search-results-page-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-page-results-main {
+  width: 100%;
+  position: relative;
+  flex-flow: column nowrap;
+}
+
+#search-results-header {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: transparent;
+}
+
+.search-result-item {
+  margin-bottom: 1%;
+}
+
 @mixin body-text($color: #000) {
   color: $color;
   font-family: 'Open Sans';

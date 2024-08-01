@@ -26,6 +26,13 @@
 
         const abortControllers = [];
 
+        // Direct to a new page when the search icon is clicked
+        // Get the search icon element by its ID
+        const navToResultsPage = () => {
+            const query = encodeURIComponent(elInput.value);
+            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
+        }
+
         elInput.addEventListener('input', e => {
             debounceInput();
         });
@@ -109,7 +116,7 @@
                 const controller = new AbortController();
                 abortControllers.unshift(abortControllers);
                 const startTime = Date.now();
-                const response = await fetch(`https://9btsjmvu15.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
+                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
                 const data = await response.json();
                 const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
                 recordEvent('view_search_results', {
@@ -253,7 +260,12 @@
 
         const navToHighlightedResult = () => {
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
-            elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
+            const element = elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`);
+            if (element) {
+                element.click?.();
+            } else {
+                navToResultsPage();
+            }
         };
 
         const recordEvent = (name, data) => {
