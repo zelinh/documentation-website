@@ -23,7 +23,7 @@
       <i class="icon icon-close"></i>
       <span>Menu</span>
     </div>
-    <div id="navigation-header" role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
+    <div role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
       <ul class="navigation-container--nested-nav-wrapper--nested-nav">
         {% for nav_item in site.data.top_nav.items %}
         <li data-istoplevel="true">
@@ -101,7 +101,7 @@
                     >
                     <div class="top-banner-search--field-with-results--field--wrapper--search-component--search-spinner"><i></i></div>
                     <label for="search-input" class="top-banner-search--field-with-results--field--wrapper--search-component--search-label">
-                      <svg id="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="top-banner-search--field-with-results--field--wrapper--search-component--search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="top-banner-search--field-with-results--field--wrapper--search-component--search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                         <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                       </svg>
                     </label>
@@ -128,19 +128,6 @@
       menu.classList.toggle('active');
       button.classList.toggle('active');
     });
-
-    // const searchIconToggler = document.getElementById('search-icon');
-    // const header = document.querySelector('#top');
-    // const navigationContainer = document.querySelector('.navigation-container--nested-nav-wrapper');
-    // const searchInputWrap = document.querySelector('.top-banner-search--field-with-results--field--wrapper--search-component--input-wrap');
-    // const searchInput = document.getElementById('search-input');
-    
-    // searchIconToggler.addEventListener('click', () => {
-    //   header.classList.toggle('search-active');
-    //   if (header.classList.contains('search-active')) {
-    //     searchInput.focus();
-    //   }
-    // });
 
     const isMobile = window.matchMedia('only screen and (max-width: 834px)').matches;
     const currentPageIsEventsList = /^\/events\/$/.test(window.location.pathname);
