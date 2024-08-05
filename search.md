@@ -1,6 +1,6 @@
 ---
 layout: search_layout
-title: OpenSearch Documentation Search Results
+title: OpenSearch Documentation Search Results Page
 nav_order: 1
 has_children: false
 nav_exclude: true

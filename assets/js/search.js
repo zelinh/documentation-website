@@ -284,7 +284,7 @@
 window.doResultsPageSearch = async (query, type, version) => {
     console.log("Running results page search!");
 
-    const searchResultsContainer = document.getElementById('search-results-container');
+    const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
         const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${version}&t=${type}`);
@@ -295,7 +295,7 @@ window.doResultsPageSearch = async (query, type, version) => {
         if (data.results && data.results.length > 0) {
             data.results.forEach(result => {
               const resultElement = document.createElement('div');
-              resultElement.classList.add('search-result-item');
+              resultElement.classList.add('search-page--results--diplay--container--item');
         
               const titleLink = document.createElement('a');
               titleLink.href = result.url;
