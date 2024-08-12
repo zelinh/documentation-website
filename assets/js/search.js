@@ -115,7 +115,7 @@
                 const controller = new AbortController();
                 abortControllers.unshift(abortControllers);
                 const startTime = Date.now();
-                const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
+                const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
                 const data = await response.json();
                 const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
                 recordEvent('view_search_results', {
@@ -280,19 +280,18 @@
 window.doResultsPageSearch = async (query, type, version) => {
     console.log("Running results page search!");
 
-    const searchResultsContainer = document.getElementById('search-results-container');
+    const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
-        const response = await fetch(`https://9d808viozl.execute-api.us-west-2.amazonaws.com/prod/search?q=${query}&v=${version}&t=${type}`);
+        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
         const data = await response.json();
+        // Clear any previous search results
         searchResultsContainer.innerHTML = '';
 
         if (data.results && data.results.length > 0) {
-            // Clear any previous search results
-
             data.results.forEach(result => {
               const resultElement = document.createElement('div');
-              resultElement.classList.add('search-result-item');
+              resultElement.classList.add('search-page--results--diplay--container--item');
 
               const titleLink = document.createElement('a');
               titleLink.href = result.url;

@@ -25,44 +25,44 @@ layout: table_wrappers
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Results Page Head from layout</title>
         </head>
-        <div class="search-page-container">
-            <aside class="search-page-sidebar">
+        <div class="search-page">
+            <aside class="search-page--sidebar">
                 <h2>Refine Your Search</h2>
                 <div class="version-selector-wrapper" id="version-panel">
                     <version-selector selected="{{ site.data.versions.current }}"></version-selector>
                 </div>
-                <form id="filters">
+                <form class="search-page--sidebar--category-filter">
                     <label>Category:</label>
-                    <div id="category-checkbox">
+                    <div class="search-page--sidebar--category-filter--checkbox">
                         <div>
-                            <input type="checkbox" id="category-all" name="category-group" value="All" class="category-checkbox" checked>
-                            <label for="category-all">All</label>
+                            <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
+                            <label for="categoryAll">All</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="category-documentation" name="category-group" value="Documentation" class="category-checkbox">
-                            <label for="category-documentation">Documentations</label>
+                            <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="Documentation" class="category-checkbox">
+                            <label for="categoryDocumentation">Documentation</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="category-nondocs" name="category-group" value="News" class="category-checkbox">
-                            <label for="category-nondocs">News</label>
+                            <input type="checkbox" id="categoryNews" name="categoryGroup" value="News" class="category-checkbox">
+                            <label for="categoryNews">News</label>
                         </div>
                     </div>
                 </form>
-                <button id="advanced-search-button" style="background-color: #00509c; color: #fff; margin-top: 10%;" type="button">Start Searching</button>
+                <button class="search-page--sidebar--search-button" id="searchButton" type="button">Start Searching</button>
             </aside>
-            <div class="search-page-results">
-                <input type="text" id="search-results-page-input" placeholder="Search from results page" aria-label="Search {{ site.title }}" data-docs-version="latest" autocomplete="off">
-                <main class="search-page-results-main">
-                    <h1 id="search-results-header"></h1>
-                    <div id="search-results-container">
+            <div class="search-page--results">
+                <input type="text" class="search-page--results--input" id="searchPageInput" placeholder="Search from results page" aria-label="Search {{ site.title }}" autocomplete="off">
+                <main class="search-page--results--diplay">
+                    <h1 class="search-page--results--diplay--header" id="searchPageResultsHeader"></h1>
+                    <div class="search-page--results--diplay--container" id="searchPageResultsContainer">
                     <!-- API results will be displayed here -->
                     </div>
                 </main>
             </div>
         </div>
-        <!-- <a class="search-page-top-link" href="#top">
+        <a class="top-link" href="#top">
             <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
-        </a> -->
+        </a>
     </div>
 </div>
 
@@ -102,29 +102,25 @@ layout: table_wrappers
 }
 </script>
 <script>
-    const searchInput = document.getElementById('search-results-page-input');
-    const searchButton = document.getElementById('advanced-search-button');
+    const searchInput = document.getElementById('searchPageInput');
+    const searchButton = document.getElementById('searchButton');
 
     function triggerSearch(query) {
-      const searchResultsHeader = document.getElementById('search-results-header');
+      const searchResultsHeader = document.getElementById('searchPageResultsHeader');
 
       if (query) {
         trucatedQuery = truncateSentence(query, 20);
-        const selectedCategory = document.querySelector('input[name="category-group"]:checked').value;
-        const search_type = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
+        const selectedCategory = document.querySelector('input[name="categoryGroup"]:checked').value;
+        const searchType = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
         const docsVersion = versionMatch ? versionMatch[1] : "latest";
 
-        console.log('category value:', selectedCategory);
-        console.log('search_type value:', search_type);
-        console.log("query in triggerSearch is: ", query);
-
         searchResultsHeader.textContent = `Search Results for "${trucatedQuery}"`;
-        doResultsPageSearch(query, search_type, docsVersion);
+        doResultsPageSearch(query, searchType, docsVersion);
       } else {
         searchResultsHeader.textContent = 'Please input a Query for searching.';
-        document.getElementById('search-results-container').innerHTML = '';
+        document.getElementById('searchPageResultsContainer').innerHTML = '';
       }
     }
 
@@ -142,7 +138,7 @@ layout: table_wrappers
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('search-results-page-input');
+      const searchInput = document.getElementById('searchPageInput');
 
       const getQueryParam = (param) => {
           const urlParams = new URLSearchParams(window.location.search);
