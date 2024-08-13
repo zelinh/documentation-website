@@ -320,6 +320,7 @@ window.doResultsPageSearch = async (query, type, version) => {
 
               const breakline = document.createElement('hr');
               breakline.style.border = '.5px solid #ccc';
+              breakline.style.margin = 'auto';
               searchResultsContainer.appendChild(breakline);
             });
         } else {
